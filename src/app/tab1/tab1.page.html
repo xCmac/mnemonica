@@ -13,7 +13,7 @@
     </ion-toolbar>
   </ion-header>
 <div class="centerMe">
-  <ion-button expand="block" size="large" *ngFor="let card of mnemonicaStack" [color]="card.suit === '♣' || card.suit === '♠' ? 'dark' : 'danger'">{{card.position}} - {{card.value}}{{card.suit}}</ion-button>
+  <ion-button expand="block" size="large" *ngFor="let card of mnemonicaService.getMnemonicaStack()" [color]="card.suit === '♣' || card.suit === '♠' ? 'dark' : 'danger'">{{card.position}} - {{card.value}}{{card.suit}}</ion-button>
 </div>
 
 </ion-content>

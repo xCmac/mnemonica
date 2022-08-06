@@ -1,0 +1,15 @@
+ion-card-content.card-position {
+    text-align: center;
+    font-size: 125px;
+    font-weight: bolder;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    ion-button {
+        width: 100%;
+    }
+}
