@@ -30,7 +30,7 @@ export class Tab2Page {
     this.currentQuestion = [];
     this.currentQuestion.push(this.questions.pop());
     this.currentQuestion.push(...this.mnemonicaService.getWrongAnswers(this.currentQuestion[0]));
-    
+
     console.log(this.currentQuestion);
   }
 
@@ -41,6 +41,5 @@ export class Tab2Page {
   setRangeFromRangeButtons(min: number, max: number) {
     this.min = min;
     this.max = max;
-    console.log(this.min, this.max);
   }
 }
