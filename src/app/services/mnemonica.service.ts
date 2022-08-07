@@ -275,4 +275,30 @@ export class MnemonicaService {
   public getMnemonicaStack(): any[] {
     return this.mnemonicaStack;
   }
+
+  public getShuffled(): any[] {
+    let shuffledCards= this.mnemonicaStack;
+    let currentIndex = shuffledCards.length,  randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [shuffledCards[currentIndex], shuffledCards[randomIndex]] = [shuffledCards[randomIndex], shuffledCards[currentIndex]];
+    }
+  
+    return shuffledCards;
+  }
+
+  public getWrongAnswers(currentQuestion): any[] {
+    const answer1 = this.getShuffled().find(c => c.position !== currentQuestion.position);
+    const answer2 = this.getShuffled().find(c => c.position !== currentQuestion.position || c.position !== answer1.position);
+    const answer3 = this.getShuffled().find(c => c.position !== currentQuestion.position || c.position !== answer1.position || c.position !== answer2.position);
+
+    return [answer1, answer2, answer3];
+  }
 }

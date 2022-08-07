@@ -17,31 +17,31 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline">1 - 13</ion-button>
+        <ion-button expand="block" size="small" fill="outline" (click)="setRangeFromRangeButtons(1, 13)">1 - 13</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline">14 - 26</ion-button>
+        <ion-button expand="block" size="small" fill="outline" (click)="setRangeFromRangeButtons(14, 26)">14 - 26</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline">26 - 39</ion-button>
+        <ion-button expand="block" size="small" fill="outline" (click)="setRangeFromRangeButtons(26, 39)">26 - 39</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline">39 - 52</ion-button>
+        <ion-button expand="block" size="small" fill="outline"(click)="setRangeFromRangeButtons(39, 52)">39 - 52</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-item>
-    <ion-range [dualKnobs]="true" [pin]="true" [ticks]="true" [snaps]="true" [min]="1" [max]="52" [value]="{ lower: 1, upper: 52 }">
+    <ion-range [dualKnobs]="true" [pin]="true" [ticks]="true" [snaps]="true" [min]="min" [max]="max" [value]="{ lower: 1, upper: 52 }">
       <ion-label slot="start"></ion-label>
       <ion-label slot="end"></ion-label>
     </ion-range>
   </ion-item>
 
 
-  <ion-card>
+  <ion-card *ngIf="currentQuestion">
     <ion-card-content class="card-position">
-      1
+      {{currentQuestion[0].position}}
     </ion-card-content>
     <div class="button-group">
       <ion-button size="large">4c</ion-button>

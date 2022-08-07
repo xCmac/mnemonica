@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MnemonicaService } from '../services/mnemonica.service';
-
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -9,16 +8,39 @@ import { MnemonicaService } from '../services/mnemonica.service';
 
 export class Tab2Page {
 
-  positions: Number[] =[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52];
+  questions: any[];
+  currentQuestion: any[];
+  correct: number = 0;
+  wrong: number = 0;
+
+  min: number = 1;
+  max: number = 52;
 
   constructor(private mnemonicaService: MnemonicaService) {}
 
+  ionViewDidEnter() {
+    console.log(this.questions);
+    this.questions = this.mnemonicaService.getShuffled();
+    console.log(this.questions);
 
-  private handleRangeButtonClick(min: Number, max: Number) {
+    this.game();
+  }
+
+  private game(): void {
+    this.currentQuestion = [];
+    this.currentQuestion.push(this.questions.pop());
+    this.currentQuestion.push(...this.mnemonicaService.getWrongAnswers(this.currentQuestion[0]));
+    
+    console.log(this.currentQuestion);
+  }
+
+  private checkAnswer() {
 
   }
 
-  private setRangeTo(min: Number, max: Number): void {
-
+  setRangeFromRangeButtons(min: number, max: number) {
+    this.min = min;
+    this.max = max;
+    console.log(this.min, this.max);
   }
 }
