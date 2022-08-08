@@ -289,7 +289,8 @@ export class MnemonicaService {
   }
 
   public getShuffled(array): any[] {
-    let currentIndex = array.length,  randomIndex;
+    let arrayToShuffle = array;
+    let currentIndex = arrayToShuffle.length,  randomIndex;
 
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
@@ -299,9 +300,9 @@ export class MnemonicaService {
       currentIndex--;
   
       // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      [arrayToShuffle[currentIndex], arrayToShuffle[randomIndex]] = [arrayToShuffle[randomIndex], arrayToShuffle[currentIndex]];
     }
   
-    return array;
+    return arrayToShuffle;
   }
 }

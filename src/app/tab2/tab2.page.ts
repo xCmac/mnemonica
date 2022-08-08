@@ -24,7 +24,6 @@ export class Tab2Page {
   constructor(private mnemonicaService: MnemonicaService) {}
 
   ionViewDidEnter() {
-    console.log(this.questions);
     this.questions = this.mnemonicaService.getShuffledMnemonicaStack();
     console.log(this.questions);
 
