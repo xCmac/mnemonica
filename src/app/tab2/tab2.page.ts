@@ -42,7 +42,7 @@ export class Tab2Page {
     this.currentQuestion['answers'] = this.mnemonicaService.getAnswers(this.currentQuestion['answer']);
 
     console.log("Current Question: ", this.currentQuestion);
-    console.log(`Correct: ${this.correct} | wrong: ${this.wrong}`);
+    console.log(`Correct: ${this.correct.length} | wrong: ${this.wrong.length}`);
   }
 
   setRangeFromRangeButtons(min: number, max: number) {
