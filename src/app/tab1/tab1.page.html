@@ -7,11 +7,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">The Stack</ion-title>
-    </ion-toolbar>
-  </ion-header>
 <div class="centerMe">
   <ion-button expand="block" size="large" *ngFor="let card of mnemonicaService.getMnemonicaStack()" [color]="card.suit === '♣' || card.suit === '♠' ? 'dark' : 'danger'">{{card.position}} - {{card.value}}{{card.suit}}</ion-button>
 </div>

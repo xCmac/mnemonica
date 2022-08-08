@@ -9,37 +9,61 @@ import { MnemonicaService } from '../services/mnemonica.service';
 export class Tab2Page {
 
   questions: any[];
-  currentQuestion: any[];
-  correct: number = 0;
-  wrong: number = 0;
+  currentQuestion = {};
+  correct: any[] = [];
+  wrong: any[] = [];
 
   min: number = 1;
   max: number = 52;
+
+  mode: string = 'numbertocard';
+
+  cardHeaderColor: string = "light";
+  isDisabled = false;
 
   constructor(private mnemonicaService: MnemonicaService) {}
 
   ionViewDidEnter() {
     console.log(this.questions);
-    this.questions = this.mnemonicaService.getShuffled();
+    this.questions = this.mnemonicaService.getShuffledMnemonicaStack();
     console.log(this.questions);
 
     this.game();
   }
 
-  private game(): void {
-    this.currentQuestion = [];
-    this.currentQuestion.push(this.questions.pop());
-    this.currentQuestion.push(...this.mnemonicaService.getWrongAnswers(this.currentQuestion[0]));
-
-    console.log(this.currentQuestion);
+  segmentChanged($event) {
+    this.mode = $event.detail.value;
   }
 
-  private checkAnswer() {
+  private game(): void {
+    this.isDisabled = false;
+    this.cardHeaderColor = "light";
+    this.currentQuestion['answer'] = this.questions.pop();
+    this.currentQuestion['answers'] = this.mnemonicaService.getAnswers(this.currentQuestion['answer']);
 
+    console.log("Current Question: ", this.currentQuestion);
+    console.log(`Correct: ${this.correct} | wrong: ${this.wrong}`);
   }
 
   setRangeFromRangeButtons(min: number, max: number) {
     this.min = min;
     this.max = max;
+  }
+
+  checkAnswer(answer) {
+    this.isDisabled = true;
+    let correct = this.currentQuestion['answer'];
+    
+    if(answer.position === correct.position ||
+        answer.value === correct.value ||
+        answer.suit === correct.suit ) {
+          this.cardHeaderColor = "success";
+          this.correct.push(answer);
+    } else {
+      this.cardHeaderColor = "danger";
+      this.wrong.push(answer);
+    }
+
+    setTimeout(()=> this.game(), 500);
   }
 }

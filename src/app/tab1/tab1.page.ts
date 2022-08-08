@@ -8,6 +8,6 @@ import { MnemonicaService } from '../services/mnemonica.service';
 })
 export class Tab1Page {
 
-  constructor(private mnemonicaService: MnemonicaService) {}
+  constructor(mnemonicaService: MnemonicaService) {}
 
 }

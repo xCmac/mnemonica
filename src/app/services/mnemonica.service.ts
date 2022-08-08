@@ -276,9 +276,20 @@ export class MnemonicaService {
     return this.mnemonicaStack;
   }
 
-  public getShuffled(): any[] {
-    let shuffledCards= this.mnemonicaStack;
-    let currentIndex = shuffledCards.length,  randomIndex;
+  public getShuffledMnemonicaStack(): any[] {
+    return this.getShuffled(this.mnemonicaStack);
+  }
+
+  public getAnswers(currentQuestion): any[] {
+    const wrongAnswer1 = this.getShuffledMnemonicaStack().find(c => c.position !== currentQuestion.position);
+    const wrongAnswer2 = this.getShuffledMnemonicaStack().find(c => c.position !== currentQuestion.position && c.position !== wrongAnswer1.position);
+    const wrongAnswer3 = this.getShuffledMnemonicaStack().find(c => c.position !== currentQuestion.position && c.position !== wrongAnswer1.position && c.position !== wrongAnswer2.position);
+
+    return this.getShuffled([currentQuestion, wrongAnswer1, wrongAnswer2, wrongAnswer3]);
+  }
+
+  public getShuffled(array): any[] {
+    let currentIndex = array.length,  randomIndex;
 
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
@@ -288,17 +299,9 @@ export class MnemonicaService {
       currentIndex--;
   
       // And swap it with the current element.
-      [shuffledCards[currentIndex], shuffledCards[randomIndex]] = [shuffledCards[randomIndex], shuffledCards[currentIndex]];
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
   
-    return shuffledCards;
-  }
-
-  public getWrongAnswers(currentQuestion): any[] {
-    const answer1 = this.getShuffled().find(c => c.position !== currentQuestion.position);
-    const answer2 = this.getShuffled().find(c => c.position !== currentQuestion.position || c.position !== answer1.position);
-    const answer3 = this.getShuffled().find(c => c.position !== currentQuestion.position || c.position !== answer1.position || c.position !== answer2.position);
-
-    return [answer1, answer2, answer3];
+    return array;
   }
 }
