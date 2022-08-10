@@ -288,8 +288,8 @@ export class MnemonicaService {
     return this.getShuffled([currentQuestion, wrongAnswer1, wrongAnswer2, wrongAnswer3]);
   }
 
-  public getShuffled(array): any[] {
-    let arrayToShuffle = array;
+  public getShuffled(array: any[]): any[] {
+    let arrayToShuffle = JSON.parse(JSON.stringify(array)); // deep copy
     let currentIndex = arrayToShuffle.length,  randomIndex;
 
     // While there remain elements to shuffle.
