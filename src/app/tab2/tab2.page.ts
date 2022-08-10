@@ -20,6 +20,7 @@ export class Tab2Page {
 
   cardHeaderColor: string = "light";
   isDisabled = false;
+  isGameFinished = false;
 
   constructor(private mnemonicaService: MnemonicaService) {}
 
@@ -37,7 +38,14 @@ export class Tab2Page {
   private game(): void {
     this.isDisabled = false;
     this.cardHeaderColor = "light";
-    this.currentQuestion['answer'] = this.questions.pop();
+    const newQuestion = this.questions.pop();
+
+    if(!newQuestion) {
+      this.isGameFinished = true;
+      return;
+    }
+
+    this.currentQuestion['answer'] = newQuestion;
     this.currentQuestion['answers'] = this.mnemonicaService.getAnswers(this.currentQuestion['answer']);
 
     console.log("Current Question: ", this.currentQuestion);
@@ -64,5 +72,9 @@ export class Tab2Page {
     }
 
     setTimeout(()=> this.game(), 500);
+  }
+
+  restartGameAfterClosingModel(isNewGame: boolean) {
+    this.isGameFinished = isNewGame;
   }
 }
