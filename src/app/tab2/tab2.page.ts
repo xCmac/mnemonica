@@ -11,7 +11,7 @@ export class Tab2Page {
   questions: any[];
   currentQuestion = {};
   correct: any[] = [];
-  wrong: any[] = [];
+  incorrect: any[] = [];
 
   min: number = 1;
   max: number = 52;
@@ -49,7 +49,7 @@ export class Tab2Page {
     this.currentQuestion['answers'] = this.mnemonicaService.getAnswers(this.currentQuestion['answer']);
 
     console.log("Current Question: ", this.currentQuestion);
-    console.log(`Correct: ${this.correct.length} | wrong: ${this.wrong.length}`);
+    console.log(`Correct: ${this.correct.length} | incorrect: ${this.incorrect.length}`);
   }
 
   setRangeFromRangeButtons(min: number, max: number) {
@@ -68,13 +68,21 @@ export class Tab2Page {
           this.correct.push(answer);
     } else {
       this.cardHeaderColor = "danger";
-      this.wrong.push(answer);
+      this.incorrect.push(answer);
     }
 
     setTimeout(()=> this.game(), 500);
   }
 
   restartGameAfterClosingModel(isNewGame: boolean) {
-    this.isGameFinished = isNewGame;
+    this.isGameFinished = !isNewGame;
+
+    this.questions = [];
+    this.currentQuestion = {};
+    this.correct = [];
+    this.incorrect = [];
+    this.questions = this.mnemonicaService.getShuffledMnemonicaStack();
+
+    this.game();
   }
 }
