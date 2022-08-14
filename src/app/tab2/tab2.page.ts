@@ -29,8 +29,8 @@ export class Tab2Page {
         answer: c,
         answers: this.mnemonicaService.getAnswers(c),
       })),
-      incorrect: [],
-      correct: [],
+      incorrectAnswers: [],
+      correctAnswers: [],
       isDone: false,
     };
 
