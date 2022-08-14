@@ -8,81 +8,39 @@ import { MnemonicaService } from '../services/mnemonica.service';
 
 export class Tab2Page {
 
-  questions: any[];
-  currentQuestion = {};
-  correct: any[] = [];
-  incorrect: any[] = [];
-
-  min: number = 1;
-  max: number = 52;
-
   mode: string = 'numbertocard';
+  game: Game;
 
-  cardHeaderColor: string = "light";
-  isDisabled = false;
-  isGameFinished = false;
+  cardHeaderColor: string = 'light';
+  isCardDisabled: boolean = false;
 
   constructor(private mnemonicaService: MnemonicaService) {}
 
   ionViewDidEnter() {
-    this.questions = this.mnemonicaService.getShuffledMnemonicaStack();
-    console.log(this.questions);
-
-    this.game();
   }
 
   segmentChanged($event) {
     this.mode = $event.detail.value;
   }
 
-  private game(): void {
-    this.isDisabled = false;
-    this.cardHeaderColor = "light";
-    const newQuestion = this.questions.pop();
+  createNewGame(min: number, max: number) {
+    const newGame: Game = {
+      questions: this.mnemonicaService.getMenmonicaStackRange(min, max).map(c => ({
+        answer: c,
+        answers: this.mnemonicaService.getAnswers(c),
+      })),
+      incorrect: [],
+      correct: [],
+      isDone: false,
+    };
 
-    if(!newQuestion) {
-      this.isGameFinished = true;
-      return;
-    }
+    newGame.currentQuestion = newGame.questions.pop();
 
-    this.currentQuestion['answer'] = newQuestion;
-    this.currentQuestion['answers'] = this.mnemonicaService.getAnswers(this.currentQuestion['answer']);
-
-    console.log("Current Question: ", this.currentQuestion);
-    console.log(`Correct: ${this.correct.length} | incorrect: ${this.incorrect.length}`);
+    console.log(newGame);
+    this.game = newGame;
   }
 
-  setRangeFromRangeButtons(min: number, max: number) {
-    this.min = min;
-    this.max = max;
-  }
-
-  checkAnswer(answer) {
-    this.isDisabled = true;
-    let correct = this.currentQuestion['answer'];
-    
-    if(answer.position === correct.position ||
-        answer.value === correct.value ||
-        answer.suit === correct.suit ) {
-          this.cardHeaderColor = "success";
-          this.correct.push(answer);
-    } else {
-      this.cardHeaderColor = "danger";
-      this.incorrect.push(answer);
-    }
-
-    setTimeout(()=> this.game(), 500);
-  }
-
-  restartGameAfterClosingModel(isNewGame: boolean) {
-    this.isGameFinished = !isNewGame;
-
-    this.questions = [];
-    this.currentQuestion = {};
-    this.correct = [];
-    this.incorrect = [];
-    this.questions = this.mnemonicaService.getShuffledMnemonicaStack();
-
-    this.game();
+  isCorrect(answer: Card, userAnswer: Card): boolean {
+    return answer.position === userAnswer.position && answer.value === userAnswer.value && answer.suit === userAnswer.suit;
   }
 }

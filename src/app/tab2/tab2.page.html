@@ -19,28 +19,24 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline" (click)="setRangeFromRangeButtons(1, 13)">1 - 13</ion-button>
+        <ion-button expand="block" size="small" fill="outline" (click)="createNewGame(0, 13)">1 - 13</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline" (click)="setRangeFromRangeButtons(14, 26)">14 - 26</ion-button>
+        <ion-button expand="block" size="small" fill="outline" (click)="createNewGame(13, 26)">14 - 26</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline" (click)="setRangeFromRangeButtons(26, 39)">26 - 39</ion-button>
+        <ion-button expand="block" size="small" fill="outline" (click)="createNewGame(26, 39)">27 - 40</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" size="small" fill="outline"(click)="setRangeFromRangeButtons(39, 52)">39 - 52</ion-button>
+        <ion-button expand="block" size="small" fill="outline"(click)="createNewGame(39, 53)">40 - 52</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" size="small" fill="outline"(click)="createNewGame(0, 53)">Full Stack</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-item>
-    <ion-range [dualKnobs]="true" [pin]="true" [ticks]="true" [snaps]="true" [min]="min" [max]="max" [value]="{ lower: 1, upper: 52 }">
-      <ion-label slot="start"></ion-label>
-      <ion-label slot="end"></ion-label>
-    </ion-range>
-  </ion-item>
-
-  <ion-modal [isOpen]="isGameFinished">
+  <ion-modal [isOpen]="game?.isDone">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -74,20 +70,19 @@
     </ng-template>
   </ion-modal>
 
-  <ion-card *ngIf="currentQuestion" color="light" disabled={{isDisabled}}>
+  <ion-card *ngIf="game" color="light" disabled={{isCardDisabled}}>
     <ion-card-header color="{{cardHeaderColor}}">
     </ion-card-header>
     <ion-card-content class="card-position">
-      {{currentQuestion['answer']?.position}}
+      {{game.currentQuestion?.answer.position}}
     </ion-card-content>
     <div class="button-group">
       <ion-button class="answer-button" size="large" fill="outline"
-      *ngFor="let answer of currentQuestion['answers']" 
-      (click)="checkAnswer(answer)"
+      *ngFor="let answer of game.currentQuestion?.answers" 
+      (click)="isCorrect(game.currentQuestion?.answer, answer)"
       color="dark">
         {{ answer.value + answer.suit }}
       </ion-button>
     </div>
   </ion-card>
-  <ion-progress-bar value="0.5"></ion-progress-bar>
 </ion-content>
