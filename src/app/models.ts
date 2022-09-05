@@ -1,32 +1,52 @@
-class Card {
+export class Card {
     position: number;
     value: string;
     suit: string;
 
-    public ToString(): string {
-        return `${this.value}${this.suit}`
+    constructor(p: number, v: string, s: string) {
+        this.position = p;
+        this.value = v;
+        this.suit = s;
+    }
+
+    public Display(): string {
+        return this.value+this.suit
     }
 }
 
-class Question {
+export class Question {
     answer: Card;
     answers: Card[];
 }
 
-class Game {
-    questions: Question[];
+export class Game {
+    questions: Question[] = [];
     currentQuestion?: Question;
-    correctAnswers: Card[];
-    incorrectAnswers: Card[];
-    isDone: boolean;
+    correctAnswers: Card[] = [];
+    incorrectAnswers: Card[] = [];
+    isDone: boolean = false;
 
-    public checkAnswer(correctAnswer: Card, userAnswer, Card): Question {
-        if (correctAnswer.position === userAnswer.position && correctAnswer.value === userAnswer.value && correctAnswer.suit === userAnswer.suit) {
-            this.correctAnswers.push(userAnswer);
+    constructor() {
+    }
+
+    public checkAnswer(userAnswer: Card): void {
+        if (this.currentQuestion.answer.position === userAnswer.position && this.currentQuestion.answer.value === userAnswer.value && this.currentQuestion.answer.suit === userAnswer.suit) {
+            this.correctAnswers.push(this.currentQuestion.answer);
+            console.log("Correct");
         } else {
-            this.incorrectAnswers.push(userAnswer);
+            this.incorrectAnswers.push(this.currentQuestion.answer);
+            console.log("Incorrect");
+        }
+        this.nextQuestion();
+    }
+
+    public nextQuestion(): void {
+        const nextQuestion = this.questions.pop();
+        if (!nextQuestion) {
+            this.isDone = true;
+            return;
         }
 
-        return this.questions.pop();
+        this.currentQuestion = nextQuestion;
     }
 }

@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      ACAAN Generator
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">ACAAN Generator</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-button expand="full" color="success" (click)="getRandomCardAndPosition()">Generate</ion-button>
+      </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>{{random}}</ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

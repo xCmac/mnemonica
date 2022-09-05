@@ -42,27 +42,27 @@
         <ion-toolbar>
           <ion-title>Results</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="restartGameAfterClosingModel(true)">Close</ion-button>
+            <ion-button (click)="reset()">Close</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
         <ion-item-group>
           <ion-item-divider>
-            <ion-label color="success">Correct: {{correct.length}}</ion-label>
+            <ion-label color="success">Correct: {{ game.correctAnswers.length }}</ion-label>
           </ion-item-divider>
         
-          <ion-item *ngFor="let c of correct">
+          <ion-item *ngFor="let c of game.correctAnswers">
             <ion-label>{{c.position}} - {{c.value}}{{c.suit}}</ion-label>
           </ion-item>
         </ion-item-group>
         
         <ion-item-group>
           <ion-item-divider>
-            <ion-label color="danger">Incorrect: {{incorrect.length}}</ion-label>
+            <ion-label color="danger">Incorrect: {{ game.incorrectAnswers.length }}</ion-label>
           </ion-item-divider>
         
-          <ion-item *ngFor="let c of correct">
+          <ion-item *ngFor="let c of game.incorrectAnswers">
             <ion-label>{{c.position}} - {{c.value}}{{c.suit}}</ion-label>
           </ion-item>
         </ion-item-group>
@@ -74,14 +74,14 @@
     <ion-card-header color="{{cardHeaderColor}}">
     </ion-card-header>
     <ion-card-content class="card-position">
-      {{game.currentQuestion?.answer.position}}
+      {{ mode === 'numbertocard' ? game.currentQuestion?.answer.position : game.currentQuestion?.answer.value+game.currentQuestion?.answer.suit }}
     </ion-card-content>
     <div class="button-group">
       <ion-button class="answer-button" size="large" fill="outline"
       *ngFor="let answer of game.currentQuestion?.answers" 
-      (click)="isCorrect(game.currentQuestion?.answer, answer)"
-      color="dark">
-        {{ answer.value + answer.suit }}
+      (click)="game.checkAnswer(answer)"
+      color="dark"> 
+        {{ mode === 'numbertocard' ? answer.value + answer.suit : answer.position }}
       </ion-button>
     </div>
   </ion-card>

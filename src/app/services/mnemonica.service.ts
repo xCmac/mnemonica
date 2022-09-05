@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Card } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -8,267 +9,59 @@ export class MnemonicaService {
   constructor() { }
 
   private mnemonicaStack: Card[] = [
-    {
-      position: 1,
-      value: "4",
-      suit: "♣",
-    },
-    {
-      position: 2,
-      value: "2",
-      suit: "♥",
-	  },
-    {
-      position: 3,
-      value: "7",
-      suit: "♦",
-	  },
-    {
-      position: 4,
-      value: "3",
-      suit: "♣",
-    },
-    {
-      position: 5,
-      value: "4",
-      suit: "♥",
-	  },
-    {
-      position: 6,
-      value: "6",
-      suit: "♦",
-	  },
-    {
-      position: 7,
-      value: "A",
-      suit: "♠",
-  	},
-    {
-      position: 8,
-      value: "5",
-      suit: "♥",
-	  },
-    {
-      position: 9,
-      value: "9",
-      suit: "♠",
-	},
-    {
-      position: 10,
-      value: "2",
-      suit: "♠",
-  	},
-    {
-      position: 11,
-      value: "Q",
-      suit: "♥",
-	  },
-    {
-      position: 12,
-      value: "3",
-      suit: "♦",
-    },
-    {
-      position: 13,
-      value: "Q",
-      suit: "♣",
-    },
-    {
-      position: 14,
-      value: "8",
-      suit: "♥",
-    },
-    {
-      position: 15,
-      value: "6",
-      suit: "♠",
-    },
-    {
-      position: 16,
-      value: "5",
-      suit: "♠",
-    },
-    {
-      position: 17,
-      value: "9",
-      suit: "♥",
-    },
-    {
-      position: 18,
-      value: "K",
-      suit: "♣",
-    },
-    {
-      position: 19,
-      value: "2",
-      suit: "♦",
-    },
-    {
-      position: 20,
-      value: "J",
-      suit: "♥",
-    },
-    {
-      position: 21,
-      value: "3",
-      suit: "♠",
-    },
-    {
-      position: 22,
-      value: "8",
-      suit: "♠",
-    },
-    {
-      position: 23,
-      value: "6",
-      suit: "♥",
-    },
-    {
-      position: 24,
-      value: "10",
-      suit: "♣",
-    },
-    {
-      position: 25,
-      value: "5",
-      suit: "♦",
-    },
-    {
-      position: 26,
-      value: "K",
-      suit: "♦",
-    },
-    {
-      position: 27,
-      value: "2",
-      suit: "♣",
-    },
-    {
-      position: 28,
-      value: "3",
-      suit: "♥",
-    },
-    {
-      position: 29,
-      value: "8",
-      suit: "♦",
-    },
-    {
-      position: 30,
-      value: "5",
-      suit: "♣",
-    },
-    {
-      position: 31,
-      value: "K",
-      suit: "♠",
-    },
-    {
-      position: 32,
-      value: "J",
-      suit: "♦",
-    },
-    {
-      position: 33,
-      value: "8",
-      suit: "♣",
-    },
-    {
-      position: 34,
-      value: "10",
-      suit: "♠",
-  	},
-  	{
-      position: 35,
-      value: "K",
-      suit: "♥",
-  	},
-    {
-      position: 36,
-      value: "J",
-      suit: "♣",
-    },
-    {
-      position: 37,
-      value: "7",
-      suit: "♠",
-    },
-    {
-      position: 38,
-      value: "10",
-      suit: "♥",
-    },
-    {
-      position: 39,
-      value: "A",
-      suit: "♦",
-    },
-    {
-      position: 40,
-      value: "4",
-      suit: "♠",
-    },
-    {
-      position: 41,
-      value: "7",
-      suit: "♥",
-    },
-    {
-      position: 42,
-      value: "4",
-      suit: "♦",
-    },
-    {
-      position: 43,
-      value: "A",
-      suit: "♣",
-    },
-    {
-      position: 44,
-      value: "9",
-      suit: "♣",
-    },
-    {
-      position: 45,
-      value: "J",
-      suit: "♠",
-    },
-    {
-      position: 46,
-      value: "Q",
-      suit: "♦",
-	  },
-    {
-      position: 47,
-      value: "7",
-      suit: "♣",
-    },
-    {
-      position: 48,
-      value: "Q",
-      suit: "♠",
-  	},
-    {
-      position: 49,
-      value: "10",
-      suit: "♦",
-    },
-    {
-      position: 50,
-      value: "6",
-      suit: "♣",
-    },
-    {
-      position: 51,
-      value: "A",
-      suit: "♥",
-	  },
-    {
-      position: 52,
-      value: "9",
-      suit: "♦",
-    },
-  ]
+                                      new Card(1, "4" ,"♣"),
+                                      new Card(2, "2" ,"♥"),
+                                      new Card(3, "7" ,"♦"),
+                                      new Card(4, "3" ,"♣"),
+                                      new Card(5, "4" ,"♥"),
+                                      new Card(6, "6" ,"♦"),
+                                      new Card(7, "A" ,"♠"),
+                                      new Card(8, "5" ,"♥"),
+                                      new Card(9, "9" ,"♠"),
+                                      new Card(10, "2" ,"♠"),
+                                      new Card(11, "Q" ,"♥"),
+                                      new Card(12, "3" ,"♦"),
+                                      new Card(13, "Q" ,"♣"),
+                                      new Card(14, "8" ,"♥"),
+                                      new Card(15, "6" ,"♠"),
+                                      new Card(16, "5" ,"♠"),
+                                      new Card(17, "9" ,"♥"),
+                                      new Card(18, "K" ,"♣"),
+                                      new Card(19, "2" ,"♦"),
+                                      new Card(20, "J" ,"♥"),
+                                      new Card(21, "3" ,"♠"),
+                                      new Card(22, "8" ,"♠"),
+                                      new Card(23, "6" ,"♥"),
+                                      new Card(24, "10" ,"♣"),
+                                      new Card(25, "5" ,"♦"),
+                                      new Card(26, "K" ,"♦"),
+                                      new Card(27, "2" ,"♣"),
+                                      new Card(28, "3" ,"♥"),
+                                      new Card(29, "8" ,"♦"),
+                                      new Card(30, "5" ,"♣"),
+                                      new Card(31, "K" ,"♠"),
+                                      new Card(32, "J" ,"♦"),
+                                      new Card(33, "8" ,"♣"),
+                                      new Card(34, "10" ,"♠"),
+                                      new Card(35, "K" ,"♥"),
+                                      new Card(36, "J" ,"♣"),
+                                      new Card(37, "7" ,"♠"),
+                                      new Card(38, "10" ,"♥"),
+                                      new Card(39, "A" ,"♦"),
+                                      new Card(40, "4" ,"♠"),
+                                      new Card(41, "7" ,"♥"),
+                                      new Card(42, "4" ,"♦"),
+                                      new Card(43, "A" ,"♣"),
+                                      new Card(44, "9" ,"♣"),
+                                      new Card(45, "J" ,"♠"),
+                                      new Card(46, "Q" ,"♦"),
+                                      new Card(47, "7" ,"♣"),
+                                      new Card(48, "Q" ,"♠"),
+                                      new Card(49, "10" ,"♦"),
+                                      new Card(50, "6" ,"♣"),
+                                      new Card(51, "A" ,"♥"),
+                                      new Card(52, "9" ,"♦"),
+  ];
 
   public getMnemonicaStack(): Card[] {
     return this.mnemonicaStack;

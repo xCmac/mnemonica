@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MnemonicaService } from '../services/mnemonica.service';
+import { Game } from '../models';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -14,6 +16,10 @@ export class Tab2Page {
   cardHeaderColor: string = 'light';
   isCardDisabled: boolean = false;
 
+  lastMin: number;
+  lastMax: number;
+  title: string;
+
   constructor(private mnemonicaService: MnemonicaService) {}
 
   ionViewDidEnter() {
@@ -24,23 +30,24 @@ export class Tab2Page {
   }
 
   createNewGame(min: number, max: number) {
-    const newGame: Game = {
-      questions: this.mnemonicaService.getMenmonicaStackRange(min, max).map(c => ({
+    this.lastMin = min;
+    this.lastMax = max;
+    const newGame: Game = new Game();
+    
+    const questions = this.mnemonicaService.getMenmonicaStackRange(min, max).map(c => ({
         answer: c,
         answers: this.mnemonicaService.getAnswers(c),
-      })),
-      incorrectAnswers: [],
-      correctAnswers: [],
-      isDone: false,
-    };
+    }));
 
-    newGame.currentQuestion = newGame.questions.pop();
-
-    console.log(newGame);
+    newGame.questions = questions;
     this.game = newGame;
+
+    console.log(this.game);
+    this.game.nextQuestion();
   }
 
-  isCorrect(answer: Card, userAnswer: Card): boolean {
-    return answer.position === userAnswer.position && answer.value === userAnswer.value && answer.suit === userAnswer.suit;
+  reset() {
+    this.createNewGame(this.lastMin, this.lastMax);
   }
+
 }
