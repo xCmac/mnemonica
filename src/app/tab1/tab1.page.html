@@ -1,14 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      The Stack
+      The Mnemonica Stack
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<div class="centerMe">
-  <ion-button expand="block" size="large" *ngFor="let card of mnemonicaService.getMnemonicaStack()" [color]="card.suit === '♣' || card.suit === '♠' ? 'dark' : 'danger'">
+<div class="mnemonicaGrid">
+  <ion-button size="small" *ngFor="let card of mnemonicaService.getMnemonicaStack()" [color]="card.suit === '♣' || card.suit === '♠' ? 'dark' : 'danger'">
     {{card.position}} - {{card.value}}{{card.suit}}
   </ion-button>
 </div>
